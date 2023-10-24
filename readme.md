@@ -1,0 +1,1 @@
+Use TransitionanalysisForMembranes to analyse trajectories
