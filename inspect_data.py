@@ -38,6 +38,23 @@ plt.figure()
 plot_dist(z, max_range=50)
 plt.savefig(path + prefix + 'z_dist.png')
 
+rand_trajs = np.random.randint(0,24544,size=(30))
+
+plt.figure()
+for i in rand_trajs:
+    plot_1dtraj(z[i, :])
+plt.savefig(path + prefix + 'rand_trajs_z.png')
+
+plt.figure()
+for i in rand_trajs:
+    plot_1dtraj(x[i, :])
+plt.savefig(path + prefix + 'rand_trajs_x.png')
+
+plt.figure()
+for i in rand_trajs:
+    plot_1dtraj(y[i, :])
+plt.savefig(path + prefix + 'rand_trajs_y.png')
+
 plt.show()
 
 
@@ -46,17 +63,7 @@ zbounds = [20.5, 38.5]  # von sofia
 xbounds = [1.5, 3, 6, 7.5, 10.5, 12, 15, 16.5]
 
 
-sele = 100  # Stichprobe einer Trajektorie
-plt.figure()
-for i in range(30):
-    plot_1dtraj(z[sele + i, :])
-plot_hor_bounds(zbounds)
-plt.savefig(path + 'sele_trajs.png')
 
-plt.figure()
-plot_1dtraj(x[sele, :])
-plot_1dtraj(y[sele, :])
-plt.savefig(path + '1d_trajs_sele_xy.png')
 
 # GET PASSAGES AND TRANSITION DURATION
 
