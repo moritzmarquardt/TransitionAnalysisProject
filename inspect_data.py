@@ -5,9 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import TransitionanalysisForMembranes.funcs as tfm
 import TransitionanalysisForMembranes.plot as tfmp
-# from functions.plot import *
-# from functions.funcs import *
-import matplotlib
 '''
 STEP 2:
 - inspect the received data
