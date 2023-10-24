@@ -42,55 +42,16 @@ rand_trajs = np.random.randint(0,24544,size=(30))
 plt.figure()
 for i in rand_trajs:
     tfmp.plot_1dtraj(z[i, :])
-plt.savefig(path + prefix + 'rand_trajs_z.png')
+plt.savefig(path + prefix + 'z_rand_trajs.png')
 
 plt.figure()
 for i in rand_trajs:
     tfmp.plot_1dtraj(x[i, :])
-plt.savefig(path + prefix + 'rand_trajs_x.png')
+plt.savefig(path + prefix + 'x_rand_trajs.png')
 
 plt.figure()
 for i in rand_trajs:
     tfmp.plot_1dtraj(y[i, :])
-plt.savefig(path + prefix + 'rand_trajs_y.png')
+plt.savefig(path + prefix + 'y_rand_trajs.png')
 
 plt.show()
-
-
-'''
-zbounds = [20.5, 38.5]  # von sofia
-xbounds = [1.5, 3, 6, 7.5, 10.5, 12, 15, 16.5]
-
-
-
-
-# GET PASSAGES AND TRANSITION DURATION
-
-ffs, ffe, indizes = dur_dist_improved(z, zbounds)
-np.save(path + "indizes_transition.npy",indizes)
-np.save(path + "ffs_transition.npy",indizes)
-np.save(path + "ffe_transition.npy",indizes)
-print(ffs)
-print(ffe)
-print(indizes)
-print("passages: " + str(ffs.size))
-
-x_dod_passages = x[indizes]
-y_dod_passages = y[indizes]
-z_dod_passages = z[indizes]
-
-distances = calc_hor_dist(x_dod_passages,y_dod_passages,ffs,ffe)
-print("Gesamte Distanz: " + str(np.sum(distances)))
-np.save(path + "distances_hor.npy", distances)
-
-#Verteilung der horizontal zurückgelegten Strecke
-plt.figure("dodecane Verteilung der quer zurückgelegten Strecke")
-plot_dist(distances,number_of_bins=30,max_range=800)
-plt.xlabel("horizontale strecke dodecane")
-plt.ylabel("relative Häufigkeit")
-
-direct = path_cat(x_dod_passages,y_dod_passages,ffs,ffe)
-print("direkt Durchgänge: " + str(direct))
-plt.show()
-
-'''
