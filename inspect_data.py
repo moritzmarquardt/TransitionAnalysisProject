@@ -3,8 +3,10 @@
 # verify data
 import numpy as np
 import matplotlib.pyplot as plt
-from functions.plot import *
-from functions.funcs import *
+import TransitionanalysisForMembranes.funcs as tfm
+import TransitionanalysisForMembranes.plot as tfmp
+# from functions.plot import *
+# from functions.funcs import *
 import matplotlib
 '''
 STEP 2:
@@ -27,32 +29,32 @@ print("number of trajs: " + str(np.size(x[:, 0])))
 print("number of timesteps: " + str(np.size(x[0, :])))
 
 plt.figure()
-plot_dist(x, max_range=50)
+tfmp.plot_dist(x, max_range=50)
 plt.savefig(path + prefix + 'x_dist.png')
 
 plt.figure()
-plot_dist(y, max_range=50)
+tfmp.plot_dist(y, max_range=50)
 plt.savefig(path + prefix + 'y_dist.png')
 
 plt.figure()
-plot_dist(z, max_range=50)
+tfmp.plot_dist(z, max_range=50)
 plt.savefig(path + prefix + 'z_dist.png')
 
 rand_trajs = np.random.randint(0,24544,size=(30))
 
 plt.figure()
 for i in rand_trajs:
-    plot_1dtraj(z[i, :])
+    tfmp.plot_1dtraj(z[i, :])
 plt.savefig(path + prefix + 'rand_trajs_z.png')
 
 plt.figure()
 for i in rand_trajs:
-    plot_1dtraj(x[i, :])
+    tfmp.plot_1dtraj(x[i, :])
 plt.savefig(path + prefix + 'rand_trajs_x.png')
 
 plt.figure()
 for i in rand_trajs:
-    plot_1dtraj(y[i, :])
+    tfmp.plot_1dtraj(y[i, :])
 plt.savefig(path + prefix + 'rand_trajs_y.png')
 
 plt.show()
