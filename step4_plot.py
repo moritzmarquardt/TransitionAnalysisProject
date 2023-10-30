@@ -43,14 +43,16 @@ print("direkt Durchgänge: " + str(direct))
 
 #plotten einer 3d trajectorie
 sel = 1
+kernel_size = 1000
+kernel = np.ones(kernel_size) / kernel_size
+x_passages_sel = np.convolve(x_passages[sel],kernel, mode='valid')
+y_passages_sel = np.convolve(y_passages[sel],kernel, mode='valid')
+z_passages_sel = np.convolve(z_passages[sel],kernel, mode='valid')
 fig = plt.figure("3d trajektorie des " + str(sel) + ". Durchgangs")
-print(x_passages[sel])
 ax = fig.add_subplot(projection='3d')
-tfmp.plot_3dtraj(ax, x_passages[sel][::50],y_passages[sel][::50],z_passages[sel][::50]) #++1 so that the last timestep is also included
-# tfmp.plot_3dtraj(ax, x_passages[sel][ffs[sel]:ffe[sel]+1],y_passages[sel][ffs[sel]:ffe[sel]+1],z_passages[sel][ffs[sel]:ffe[sel]+1]) #++1 so that the last timestep is also included
+tfmp.plot_3dtraj(ax, x_passages_sel,y_passages_sel,z_passages_sel) #++1 so that the last timestep is also included
 # tfmp.plot_3dpoints(ax, x_passages[sel,ffs[sel]],y_passages[sel,ffs[sel]],z_passages[sel,ffs[sel]]) #starting point
 # tfmp.plot_3dpoints(ax, x_passages[sel,ffe[sel]],y_passages[sel,ffe[sel]],z_passages[sel,ffe[sel]]) #end point
-tfmp.plot_3dbounds(ax, xbounds)
 tfmp.plot_3dbounds(ax, zbounds)
 
 
