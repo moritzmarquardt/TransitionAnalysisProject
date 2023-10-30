@@ -1,6 +1,3 @@
-# inspct file that has routines and workflow to inspect trajectories
-# shoukd be possible to read out boundaries,
-# verify data
 import numpy as np
 import matplotlib.pyplot as plt
 import TransitionanalysisForMembranes.funcs as tfm

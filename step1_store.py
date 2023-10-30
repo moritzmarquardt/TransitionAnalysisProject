@@ -10,22 +10,22 @@ print("store .xvg files as .npy")
 path = 'sim_data/20231017/'
 files = os.listdir(path)
 
-
+i = 0
 for f in files:
     if f.endswith(".xvg"):
+        print("store trajectory file nr. " + str(i + 1))
         file = np.loadtxt(path + f, comments="@", unpack=True)
         trajectories = file[1:, :]  # because first column is the timeline
-        number_of_traj = trajectories[:, 0].size
-        print("number of trajectories: " + str(number_of_traj))
+        print("number of trajectories: " + str(trajectories[:, 0].size))
         np.save(
             path + f.split('.')[0] + ".npy",
             trajectories,
         )
-        if not os.path.isfile(path + "timeline.npy"): # only create timeline once
+        if i == 0: # only create timeline once
+            print("store timeline")
             timeline = file[0, :]
             np.save(
                 path + "timeline.npy",
                 timeline,
             )
-        else:
-            print("timeline.npy already exists")
+        i = i + 1
