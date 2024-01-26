@@ -10,17 +10,22 @@ STEP 2:
 - plot sample trajectories for plausibility analysis
 '''
 
-path = "sim_data/20231017/"
+path = "sim_data/20231120/"
+print(path)
 prefix = "dod_c2_"
 x = np.load(path + prefix + "x.npy")
 y = np.load(path + prefix + "y.npy")
 z = np.load(path + prefix + "z.npy")
 timeline = np.load(path + "timeline.npy")
+print("step size in ps: " + str(timeline[2]-timeline[1]))
+print("number of timesteps: " + str(np.size(x[0, :])))
+print("sim duration (in ns if step size is in ps): " + str(np.size(x[0, :])*(timeline[2]-timeline[1])/1000))
+
+print(timeline[:100],timeline[-100:-1])
 
 print("max z-value: " + str(np.max(z)) + "; min z-value: " + str(np.min(z)))
 
 print("number of trajs: " + str(np.size(x[:, 0])))
-print("number of timesteps: " + str(np.size(x[0, :])))
 
 plt.figure()
 tfmp.plot_dist(x, max_range=50)

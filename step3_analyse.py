@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import TransitionanalysisForMembranes.funcs as tfm
 import TransitionanalysisForMembranes.plot as tfmp
 
-path = "sim_data/20231017/"
+path = "sim_data/20231120/"
 prefix = "dod_c2_"
 x = np.load(path + prefix + "x.npy")
 y = np.load(path + prefix + "y.npy")
@@ -19,8 +19,8 @@ xbounds = [1.5, 3, 6, 7.5, 10.5, 12, 15, 16.5]
 
 ffs, ffe, indizes = tfm.dur_dist_improved(z, zbounds)
 np.save(path + prefix + "indizes_transition.npy",indizes)
-np.save(path + prefix + "ffs_transition.npy",indizes)
-np.save(path + prefix + "ffe_transition.npy",indizes)
+np.save(path + prefix + "ffs_transition.npy",ffs)
+np.save(path + prefix + "ffe_transition.npy",ffe)
 print(ffs)
 print(ffe)
 print(indizes)

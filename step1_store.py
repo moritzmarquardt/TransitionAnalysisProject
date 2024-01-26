@@ -7,7 +7,7 @@ STEP 1:
 '''
 
 print("store .xvg files as .npy")
-path = 'sim_data/20231017/'
+path = 'sim_data/20231120/'
 files = os.listdir(path)
 
 i = 0
@@ -17,6 +17,7 @@ for f in files:
         file = np.loadtxt(path + f, comments="@", unpack=True)
         trajectories = file[1:, :]  # because first column is the timeline
         print("number of trajectories: " + str(trajectories[:, 0].size))
+        print("number of timesteps: " + str(trajectories[0, :].size))
         np.save(
             path + f.split('.')[0] + ".npy",
             trajectories,
