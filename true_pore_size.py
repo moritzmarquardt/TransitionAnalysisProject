@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import MDAnalysis as mda
-import scipy.optimize as spo
 import time
 
 start = time.time()
