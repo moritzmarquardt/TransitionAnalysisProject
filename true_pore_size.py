@@ -78,38 +78,30 @@ print("hist calc done after: " + str(time.time()-start))
 
 
 #compute true pore size:
-# Find the first bin with a frequency of 0
 first_zero_bin = np.where(c_hist == 0)[0][0]
 first_zero_middle = (c_bin_edges[first_zero_bin] + c_bin_edges[first_zero_bin + 1]) / 2
-
 first_non_zero_bin = np.where(dod_hex_hist > 0)[0][0]
 first_non_zero_middle = (dod_hex_bin_edges[first_non_zero_bin] + dod_hex_bin_edges[first_non_zero_bin + 1]) / 2
+avrg_lower_edge = np.abs(first_zero_middle + first_non_zero_middle)/2
 
-# Find the last bin with a frequency of 0
 last_zero_bin = np.where(c_hist == 0)[0][-1]
 last_zero_middle = (c_bin_edges[last_zero_bin] + c_bin_edges[last_zero_bin + 1]) / 2
-
 last_non_zero_bin = np.where(dod_hex_hist > 0)[0][-1]
 last_non_zero_middle = (dod_hex_bin_edges[last_non_zero_bin] + dod_hex_bin_edges[last_non_zero_bin + 1]) / 2
+avrg_upper_edge = np.abs(last_zero_middle + last_non_zero_middle)/2
 
-print("First non-zero bin middle: ", first_non_zero_middle)
-print("Last non-zero bin middle: ", last_non_zero_middle)
-
-print("First zero bin middle: ", first_zero_middle)
-print("Last zero bin middle: ", last_zero_middle)
-
-true_pore_size = np.abs(np.abs(first_zero_middle + first_non_zero_middle)/2 - np.abs(last_zero_middle + last_non_zero_middle)/2)
-print("true pore size in nm:" + str(true_pore_size/10))
+true_pore_size = np.abs(avrg_lower_edge - avrg_upper_edge) # in Angstroms
+print("true pore size calculated after: " + str(time.time()-start))
+print("true pore size in nm: " + str(true_pore_size/10))
 
 # Plot all histograms in one plot
 plt.figure()
 plt.plot(c_bin_edges[:-1], c_hist, label='C', linestyle='-', marker='o', markersize=3)
 plt.plot(dod_hex_bin_edges[:-1], dod_hex_hist, label='DOD & HEX', linestyle='-', marker='o', markersize=3)
-x1 = np.abs(first_zero_middle + first_non_zero_middle)/2
-x2 = np.abs(last_zero_middle + last_non_zero_middle)/2
+x1 = avrg_lower_edge
+x2 = avrg_upper_edge
 plt.axvline(x=x1, color='r', linestyle='--')
 plt.axvline(x=x2, color='r', linestyle='--')
-
 plt.xlabel('X-axis in Angstroms')
 plt.ylabel('Frequency')
 plt.title('Histogram Line Plot along the X-axis with Y and Z constraints for Atoms')
