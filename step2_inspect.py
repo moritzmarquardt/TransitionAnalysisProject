@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import TransitionanalysisForMembranes.funcs as tfm
-import TransitionanalysisForMembranes.plot as tfmp
+import MembraneAnalysisToolbox.funcs as tfm
+import MembraneAnalysisToolbox.plot as tfmp
 '''
 STEP 2:
 - inspect the received data

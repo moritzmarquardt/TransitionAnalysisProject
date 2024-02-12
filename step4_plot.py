@@ -3,10 +3,10 @@
 # verify data
 import numpy as np
 import matplotlib.pyplot as plt
-import TransitionanalysisForMembranes.funcs as tfm
-import TransitionanalysisForMembranes.plot as tfmp
+import MembraneAnalysisToolbox.funcs as tfm
+import MembraneAnalysisToolbox.plot as tfmp
 
-path = "sim_data/20231017/"
+path = "./sim_data/20231017/"
 prefix = "dod_c2_"
 x_passages = np.load(path + prefix + "x_passages.npy")
 y_passages = np.load(path + prefix + "y_passages.npy")
