@@ -13,7 +13,7 @@ y_passages = np.load(path + prefix + "y_passages.npy")
 z_passages = np.load(path + prefix + "z_passages.npy")
 ffs = np.load(path + prefix + "ffs_transition.npy")
 ffe = np.load(path + prefix + "ffe_transition.npy")
-distances = np.load(path + prefix + "distances_hor.npy")
+distances = np.load(path + prefix + "distances_hor.npy") 
 timeline = np.load(path + "timeline.npy")
 
 
