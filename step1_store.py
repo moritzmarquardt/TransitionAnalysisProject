@@ -3,6 +3,7 @@ import os
 '''
 STEP 1:
 - After receiving files, store them as numpy arrays for better further handling and processing
+- the files must be xvg files of the x,y, and z trajectory of the dod and hex molecules
 - The files (that end with xvg - so trajectory files) are stored into the same folder with the same name but with the ending .npy
 '''
 
