@@ -1,18 +1,16 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import MembraneAnalysisToolbox.funcs as tfm
-import MembraneAnalysisToolbox.plot as tfmp
 
-path = "sim_data/20231120/"
-prefix = "dod_c2_"
+path = '/bigpool/users/ac130484/project/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
+prefix = "dod_traj_"
 x = np.load(path + prefix + "x.npy")
 y = np.load(path + prefix + "y.npy")
 z = np.load(path + prefix + "z.npy")
 timeline = np.load(path + "timeline.npy")
 
 
-zbounds = [20.5, 38.5]  # obtained with the inspect data script
-xbounds = [1.5, 3, 6, 7.5, 10.5, 12, 15, 16.5]
+zbounds = [240, 400]  # obtained with the inspect data script
+# xbounds = [1.5, 3, 6, 7.5, 10.5, 12, 15, 16.5]
 
 
 # GET PASSAGES AND TRANSITION DURATION
@@ -35,6 +33,6 @@ np.save(path + prefix + "y_passages.npy", y_passages)
 np.save(path + prefix + "z_passages.npy", z_passages)
 
 
-distances = tfm.calc_hor_dist(x_passages,y_passages,ffs,ffe)
-print("Gesamte Distanz: " + str(np.sum(distances)))
-np.save(path + prefix + "distances_hor.npy", distances)
+# distances = tfm.calc_hor_dist(x_passages,y_passages,ffs,ffe)
+# print("Gesamte Distanz: " + str(np.sum(distances)))
+# np.save(path + prefix + "distances_hor.npy", distances)

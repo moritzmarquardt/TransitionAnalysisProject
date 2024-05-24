@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 import MembraneAnalysisToolbox.funcs as tfm
 import MembraneAnalysisToolbox.plot as tfmp
 
-path = "./sim_data/20231017/"
-prefix = "dod_c2_"
+path = "/bigpool/users/ac130484/project/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/"
+prefix = "dod_traj_"
 x_passages = np.load(path + prefix + "x_passages.npy")
 y_passages = np.load(path + prefix + "y_passages.npy")
 z_passages = np.load(path + prefix + "z_passages.npy")
 ffs = np.load(path + prefix + "ffs_transition.npy")
 ffe = np.load(path + prefix + "ffe_transition.npy")
-distances = np.load(path + prefix + "distances_hor.npy") 
+# distances = np.load(path + prefix + "distances_hor.npy") 
 timeline = np.load(path + "timeline.npy")
 
 
@@ -34,13 +34,13 @@ plt.xlabel("Durchgangszeiten")
 plt.ylabel("relative Häufigkeit")
 
 #Verteilung der horizontal zurückgelegten Strecke
-plt.figure("Verteilung der quer zurückgelegten Strecke")
-tfmp.plot_dist(distances,number_of_bins=30,max_range=np.max(distances))
-plt.xlabel("horizontale strecke dodecane")
-plt.ylabel("relative Häufigkeit")
+# plt.figure("Verteilung der quer zurückgelegten Strecke")
+# tfmp.plot_dist(distances,number_of_bins=30,max_range=np.max(distances))
+# plt.xlabel("horizontale strecke dodecane")
+# plt.ylabel("relative Häufigkeit")
 
-direct = tfm.path_cat(x_passages,y_passages,ffs,ffe)
-print("direkt Durchgänge: " + str(direct))
+# direct = tfm.path_cat(x_passages,y_passages,ffs,ffe)
+# print("direkt Durchgänge: " + str(direct))
 
 
 #plotten einer 3d trajectorie
@@ -71,8 +71,6 @@ tfmp.plot_point(ffe[sel],z_dod_passages[sel,ffe[sel]])
 plt.xlabel("Zeitschritte")
 plt.ylabel("Z-Wert")
 '''
-
-
 
 
 #Durchgangszeten verteilung plotten
