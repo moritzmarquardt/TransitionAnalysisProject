@@ -1,5 +1,6 @@
 import numpy as np
 import MDAnalysis as mda
+import os
 
 '''
 STEP 1:
@@ -11,17 +12,29 @@ STEP 1:
 print("store traj.xtc file as .npy files")
 path = '/bigpool/users/ac130484/project/finished_sim/hex/poresize/2nm_NVT/simulation_3/'
 save_path = path + "analysis/"
-# save_path = "sim_data/temp/"
+
+# Check if topol.tpr and traj.xtc files exist in the path
+if not os.path.exists(path + "topol.tpr") or not os.path.exists(path + "traj.xtc"):
+    raise Exception("topol.tpr or traj.xtc file not found in the specified path -> storing is not possible")
 
 
+# the topol file contains the information about the system
+# the traj file contains the trajectory of the system
 u = mda.Universe(path + "topol.tpr", path + 'traj.xtc')
+print("number of frames: " + str(u.trajectory.n_frames))
+print("step size: " + str(u.trajectory.dt) + " ps")
+print("simulation duration: " + str(u.trajectory.n_frames*u.trajectory.dt/1000) + " ns")
 
-# select c1 atoms of the hex and dod molecules because otherwise 
+# select c2 atoms of the hex and dod molecules because otherwise 
 # the passages of each oof the molecuele atoms are being counted
-hex = u.select_atoms("resname HEX and name C1") 
-dod = u.select_atoms("resname DOD and name C1")
+hex = u.select_atoms("resname HEX and name C2") # hex has 2 beats per molecue in the coarse grained model
+dod = u.select_atoms("resname DOD and name C2") # dod has 3 beats per molecue in the coarse grained model so select the middle one
+print("number of hex atoms: " + str(hex.n_atoms))
+print("number of dod atoms: " + str(dod.n_atoms))
 
-nth = 20
+#we want at least 5 steps per ns because transitions can last only 1ns and it needs steps to identify it as a passage
+nth = int(np.floor(1000/u.trajectory.dt/5))
+print("every " + str(nth) + "th frame is stored")
 timesteps = int(np.ceil(u.trajectory.n_frames/nth))
 hex_traj = np.zeros((hex.n_atoms, timesteps, 3))
 dod_traj = np.zeros((dod.n_atoms, timesteps, 3))
@@ -45,6 +58,5 @@ for i,j in enumerate(["x", "y", "z"]):
     print(dod_traj[:,:,i].shape)
 
     
-print("save timeline")
 np.save(save_path + "timeline.npy", timeline)
 print("saving is done")
