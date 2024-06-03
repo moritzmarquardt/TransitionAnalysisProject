@@ -15,7 +15,7 @@ for res in ["hex", "dod"]:
 
     # GET PASSAGES AND TRANSITION DURATION
 
-    ffs, ffe, indizes = tfm.dur_dist_improved(z, zbounds,2,2)
+    ffs, ffe, indizes = tfm.dur_dist_improved(z, zbounds)
     np.save(path + prefix + "indizes_transition.npy",indizes)
     np.save(path + prefix + "ffs_transition.npy",ffs)
     np.save(path + prefix + "ffe_transition.npy",ffe)
