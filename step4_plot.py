@@ -36,10 +36,10 @@ for res in ["hex", "dod"]:
         x_passages_sel = np.convolve(x_passages[sel],kernel)
         y_passages_sel = np.convolve(y_passages[sel],kernel)
         z_passages_sel = np.convolve(z_passages[sel],kernel)
-        slicer = slice(ffs[sel]+1, ffe[sel], 1)
+        slicer = slice(ffs[sel]-1, ffe[sel]+2, 1)
         tfmp.plot_3dtraj(ax, x_passages_sel[slicer],y_passages_sel[slicer],z_passages_sel[slicer]) #++1 so that the last timestep is also included
-        tfmp.plot_3dpoints(ax, x_passages_sel[ffs[sel]+1],y_passages_sel[ffs[sel]+1],z_passages_sel[ffs[sel]+1]) #starting point
-        tfmp.plot_3dpoints(ax, x_passages_sel[ffe[sel]],y_passages_sel[ffe[sel]],z_passages_sel[ffe[sel]]) #end point
+        tfmp.plot_3dpoints(ax, x_passages_sel[ffs[sel]-1],y_passages_sel[ffs[sel]-1],z_passages_sel[ffs[sel]-1]) #starting point
+        tfmp.plot_3dpoints(ax, x_passages_sel[ffe[sel]+2],y_passages_sel[ffe[sel]+2],z_passages_sel[ffe[sel]+2]) #end point
     # tfmp.plot_3dbounds(ax, zbounds)
 
 
