@@ -1,10 +1,18 @@
 import numpy as np
 import MembraneAnalysisToolbox.funcs as tfm
+import os
 
-path = '/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
+# path = '/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
+
+# Ask for the paths from the user
+path = input("Enter the analysis folder path: ")
+
+lower_zbound = input("Enter the lower z-boundary: ")
+upper_zbound = input("Enter the upper z-boundary: ")
+
 
 timeline = np.load(path + "timeline.npy")
-zbounds = [240, 400]  # obtained with the inspect data script
+zbounds = [lower_zbound, upper_zbound]  # obtained with the inspect data script
 
 for res in ["hex", "dod"]:
     prefix = res + "_traj_"

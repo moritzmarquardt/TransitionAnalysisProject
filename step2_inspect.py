@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import MembraneAnalysisToolbox.funcs as tfm
 import MembraneAnalysisToolbox.plot as tfmp
+import os
 '''
 STEP 2:
 - inspect the received data
@@ -10,8 +11,12 @@ STEP 2:
 - plot sample trajectories for plausibility analysis
 '''
 
-path = '/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
-print(path)
+# path = '/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
+# print(path)
+
+# Ask for the paths from the user
+path = input("Enter the analysis folder path: ")
+
 
 fig_z_dist, ax_z_dist = plt.subplots()
 fig_z_dist.suptitle("Histogram of z")

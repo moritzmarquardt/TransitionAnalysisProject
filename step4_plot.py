@@ -6,8 +6,11 @@ import matplotlib.pyplot as plt
 import MembraneAnalysisToolbox.funcs as tfm
 import MembraneAnalysisToolbox.plot as tfmp
 
-path = "/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/"
-print(path)
+# path = "/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/"
+# print(path)
+
+# Ask for the paths from the user
+path = input("Enter the analysis folder path: ")
 
 for res in ["hex", "dod"]:
     prefix = res + "_traj_"
@@ -20,7 +23,6 @@ for res in ["hex", "dod"]:
     # distances = np.load(path + prefix + "distances_hor.npy") 
     timeline = np.load(path + "timeline.npy")
 
-
     plt.figure("Verteilung der Durchgangszeiten")
     tfmp.plot_dist(ffe-ffs,number_of_bins=10, max_range=np.max(ffe-ffs))
     plt.xlabel("Durchgangszeiten")
@@ -31,11 +33,13 @@ for res in ["hex", "dod"]:
     kernel = np.ones(kernel_size) / kernel_size
     fig = plt.figure("3d trajektorien")
     ax = fig.add_subplot(projection='3d')
+    fig2, ax2 = plt.subplots()
     for sel in np.random.randint(0,x_passages.shape[0],size=(3)):
         print(sel)
-        x_passages_sel = np.convolve(x_passages[sel],kernel)
-        y_passages_sel = np.convolve(y_passages[sel],kernel)
-        z_passages_sel = np.convolve(z_passages[sel],kernel)
+        ax2.plot(np.arange(z_passages[sel,ffs[sel]-1:ffe[sel]+2].size),z_passages[sel,ffs[sel]-1:ffe[sel]+2], label=str(sel))
+        x_passages_sel = x_passages[sel]
+        y_passages_sel = y_passages[sel]
+        z_passages_sel = z_passages[sel]
         slicer = slice(ffs[sel]-1, ffe[sel]+2, 1)
         tfmp.plot_3dtraj(ax, x_passages_sel[slicer],y_passages_sel[slicer],z_passages_sel[slicer]) #++1 so that the last timestep is also included
         tfmp.plot_3dpoints(ax, x_passages_sel[ffs[sel]-1],y_passages_sel[ffs[sel]-1],z_passages_sel[ffs[sel]-1]) #starting point
