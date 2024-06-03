@@ -10,57 +10,65 @@ STEP 2:
 - plot sample trajectories for plausibility analysis
 '''
 
-path = '/bigpool/users/ac130484/project/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
+path = '/hugepool/data/sofia_simulationen/carbon/finished_sim/hex/poresize/2nm_NVT/simulation_3/analysis/'
 print(path)
-prefix = "dod_traj_"
-x = np.load(path + prefix + "x.npy")
-y = np.load(path + prefix + "y.npy")
-z = np.load(path + prefix + "z.npy")
-timeline = np.load(path + "timeline.npy")
-print("step size in ps: " + str(timeline[2]-timeline[1]))
-print("number of timesteps: " + str(np.size(x[0, :])))
-print("sim duration (in ns if step size is in ps): " + str(np.size(x[0, :])*(timeline[2]-timeline[1])/1000))
 
-# print(timeline[:100],timeline[-100:-1])
-print("max z-value: " + str(np.max(z)) + "; min z-value: " + str(np.min(z)))
-print("number of trajs: " + str(np.size(x[:, 0])))
+fig_z_dist, ax_z_dist = plt.subplots()
+fig_z_dist.suptitle("Histogram of z")
 
-plt.figure("x_dist")
-plt.hist(x.flatten(), bins=100, density=True)
-plt.xlabel("x")
-plt.ylabel("Frequency")
-plt.title("Histogram of x")
-plt.savefig(path + prefix + 'x_dist.png')
+fig_x_dist, ax_x_dist = plt.subplots()
+fig_x_dist.suptitle("Histogram of x")
 
-plt.figure("y_dist")
-plt.hist(y.flatten(), bins=100, density=True)
-plt.xlabel("y")
-plt.ylabel("Frequency")
-plt.title("Histogram of y")
-plt.savefig(path + prefix + 'y_dist.png')
+fig_y_dist, ax_y_dist = plt.subplots()
+fig_y_dist.suptitle("Histogram of y")
 
-plt.figure("z_dist")
-plt.hist(z.flatten(), bins=100, density=True)
-plt.xlabel("z")
-plt.ylabel("Frequency")
-plt.title("Histogram of z")
-plt.savefig(path + prefix + 'z_dist.png')
+for res in ["hex", "dod"]:
+    print("Inspecting " + res + " trajectories")
+    prefix = res + "_traj_"
+    x = np.load(path + prefix + "x.npy")
+    y = np.load(path + prefix + "y.npy")
+    z = np.load(path + prefix + "z.npy")
+    timeline = np.load(path + "timeline.npy")
 
-rand_trajs = np.random.randint(0,str(np.size(x[:, 0])),size=(2))
+    print("step size in ps: " + str(timeline[2]-timeline[1]))
+    print("number of timesteps: " + str(np.size(x[0, :])))
+    print("sim duration (in ns if step size is in ps): " + str(np.size(x[0, :])*(timeline[2]-timeline[1])/1000))
+    print("max z-value: " + str(np.max(z)) + "; min z-value: " + str(np.min(z)))
+    print("number of trajs: " + str(np.size(x[:, 0])))
 
-plt.figure("z_rand_trajs")
-for i in rand_trajs:
-    tfmp.plot_1dtraj(z[i, :])
-plt.savefig(path + prefix + 'z_rand_trajs.png')
+    ax_z_dist.hist(z.flatten(), bins=100, density=True, alpha=0.5, label=res)
+    ax_x_dist.hist(x.flatten(), bins=100, density=True, alpha=0.5, label=res)
+    ax_y_dist.hist(y.flatten(), bins=100, density=True, alpha=0.5, label=res)
 
-plt.figure("x_rand_trajs")
-for i in rand_trajs:
-    tfmp.plot_1dtraj(x[i, :])
-plt.savefig(path + prefix + 'x_rand_trajs.png')
+    rand_trajs = np.random.randint(0,str(np.size(x[:, 0])),size=(2))
 
-plt.figure("y_rand_trajs")
-for i in rand_trajs:
-    tfmp.plot_1dtraj(y[i, :])
-plt.savefig(path + prefix + 'y_rand_trajs.png')
+    plt.figure("z_rand_trajs_" + res)
+    for i in rand_trajs:
+        tfmp.plot_1dtraj(z[i, :])
+
+    plt.figure("x_rand_trajs_" + res)
+    for i in rand_trajs:
+        tfmp.plot_1dtraj(x[i, :])
+
+    plt.figure("y_rand_trajs_" + res)
+    for i in rand_trajs:
+        tfmp.plot_1dtraj(y[i, :])
+    
+    plt.show()
+
+ax_z_dist.set_xlabel("z")
+ax_z_dist.set_ylabel("Frequency")
+ax_z_dist.legend()
+fig_z_dist.savefig(path + 'z_dist.png')
+
+ax_x_dist.set_xlabel("x")
+ax_x_dist.set_ylabel("Frequency")
+ax_x_dist.legend()
+fig_x_dist.savefig(path + 'x_dist.png')
+
+ax_y_dist.set_xlabel("y")
+ax_y_dist.set_ylabel("Frequency")
+ax_y_dist.legend()
+fig_y_dist.savefig(path + 'y_dist.png')
 
 plt.show()
