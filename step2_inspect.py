@@ -17,16 +17,6 @@ STEP 2:
 # Ask for the paths from the user
 path = input("Enter the analysis folder path: ")
 
-
-fig_z_dist, ax_z_dist = plt.subplots()
-fig_z_dist.suptitle("Histogram of z")
-
-fig_x_dist, ax_x_dist = plt.subplots()
-fig_x_dist.suptitle("Histogram of x")
-
-fig_y_dist, ax_y_dist = plt.subplots()
-fig_y_dist.suptitle("Histogram of y")
-
 for res in ["hex", "dod"]:
     print("Inspecting " + res + " trajectories")
     prefix = res + "_traj_"
@@ -41,9 +31,29 @@ for res in ["hex", "dod"]:
     print("max z-value: " + str(np.max(z)) + "; min z-value: " + str(np.min(z)))
     print("number of trajs: " + str(np.size(x[:, 0])))
 
+    fig_z_dist, ax_z_dist = plt.subplots()
+    fig_z_dist.suptitle("Histogram of z", fontsize="x-large")
     ax_z_dist.hist(z.flatten(), bins=100, density=True, alpha=0.5, label=res)
+    ax_z_dist.set_xlabel("z", fontsize="x-large")
+    ax_z_dist.set_ylabel("Frequency", fontsize="x-large")
+    ax_z_dist.legend()
+    fig_z_dist.savefig(path + res + '_z_dist.png')
+
+    fig_x_dist, ax_x_dist = plt.subplots()
+    fig_x_dist.suptitle("Histogram of x", fontsize="x-large")
     ax_x_dist.hist(x.flatten(), bins=100, density=True, alpha=0.5, label=res)
+    ax_x_dist.set_xlabel("x", fontsize="x-large")
+    ax_x_dist.set_ylabel("Frequency", fontsize="x-large")
+    ax_x_dist.legend()
+    fig_x_dist.savefig(path + res + '_x_dist.png')
+
+    fig_y_dist, ax_y_dist = plt.subplots()
+    fig_y_dist.suptitle("Histogram of y", fontsize="x-large")
     ax_y_dist.hist(y.flatten(), bins=100, density=True, alpha=0.5, label=res)
+    ax_y_dist.set_xlabel("y", fontsize="x-large")
+    ax_y_dist.set_ylabel("Frequency", fontsize="x-large")
+    ax_y_dist.legend()
+    fig_y_dist.savefig(path + res + '_y_dist.png')
 
     rand_trajs = np.random.randint(0,str(np.size(x[:, 0])),size=(2))
 
@@ -60,20 +70,3 @@ for res in ["hex", "dod"]:
         tfmp.plot_1dtraj(y[i, :])
     
     plt.show()
-
-ax_z_dist.set_xlabel("z")
-ax_z_dist.set_ylabel("Frequency")
-ax_z_dist.legend()
-fig_z_dist.savefig(path + 'z_dist.png')
-
-ax_x_dist.set_xlabel("x")
-ax_x_dist.set_ylabel("Frequency")
-ax_x_dist.legend()
-fig_x_dist.savefig(path + 'x_dist.png')
-
-ax_y_dist.set_xlabel("y")
-ax_y_dist.set_ylabel("Frequency")
-ax_y_dist.legend()
-fig_y_dist.savefig(path + 'y_dist.png')
-
-plt.show()
