@@ -50,7 +50,11 @@ for res in ["hex", "dod"]:
     # plot starting points
     fig = plt.figure("plotten aller Startpunkte")
     ax = fig.add_subplot(projection='3d')
-    tfmp.plot_3dpoints(ax,x_passages[np.arange(np.size(x_passages,0)),ffs+1],y_passages[np.arange(np.size(x_passages,0)),ffs+1],z_passages[np.arange(np.size(x_passages,0)),ffs+1]) #ugly way of getting the point. maybe there is a better way
+    ax.set_xlabel("x in nm", fontsize="x-large")
+    ax.set_ylabel("y in nm", fontsize="x-large")
+    ax.set_zlabel("z in nm", fontsize="x-large")
+    ax.set_title("Membrane-entry points of the passage-trajectories (" + res.upper() + ")", fontsize="x-large")
+    ax.scatter(x_passages[np.arange(np.size(x_passages,0)),ffs+1]/10,y_passages[np.arange(np.size(x_passages,0)),ffs+1]/10,z_passages[np.arange(np.size(x_passages,0)),ffs+1]/10) #ugly way of getting the point. maybe there is a better way
     # tfmp.plot_3dpoints(ax,x_passages[np.arange(np.size(x_passages,0)),ffs+200],y_passages[np.arange(np.size(x_passages,0)),ffs+200],z_passages[np.arange(np.size(x_passages,0)),ffs+200]) #ugly way of getting the point. maybe there is a better way
     # tfmp.plot_3dpoints(ax,x_passages[np.arange(np.size(x_passages,0)),ffs+3000],y_passages[np.arange(np.size(x_passages,0)),ffs+3000],z_passages[np.arange(np.size(x_passages,0)),ffs+3000]) #ugly way of getting the point. maybe there is a better way
 
