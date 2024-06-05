@@ -7,8 +7,8 @@ import os
 # Ask for the paths from the user
 path = input("Enter the analysis folder path: ")
 
-lower_zbound = input("Enter the lower z-boundary: ")
-upper_zbound = input("Enter the upper z-boundary: ")
+lower_zbound = float(input("Enter the lower z-boundary: "))
+upper_zbound = float(input("Enter the upper z-boundary: "))
 
 
 timeline = np.load(path + "timeline.npy")
