@@ -80,6 +80,6 @@ results = {
     "nth": nth,
 }
     
-np.save(save_path + "analysis_results.npy", results)
+np.save(save_path + "analysis_results.json", results)
 np.save(save_path + "timeline.npy", timeline)
 print("saving is done")
