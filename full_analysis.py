@@ -20,8 +20,8 @@ for path in paths:
     L = 180
 
     # STEP 2: Find z_lower and validate by eye
-    z_lower = Analysis2nm_1.find_z_lower_hexstruc(mem_selector = "resname C", L=L)
     print("Analysis of the membrane z-dimension")
+    z_lower = Analysis2nm_1.find_z_lower_hexstruc(mem_selector = "resname C", L=L)
     print("\tz_lower: " + str(z_lower))
     Analysis2nm_1.inspect(["resname HEX and name C1"], z_lower, L)
 
@@ -30,14 +30,15 @@ for path in paths:
     print("\nHEX analysis")
     ffs, ffe, indizes = Analysis2nm_1.calc_passagetimes(["resname HEX and name C1"], z_lower, L)
     print("\tpassages: " + str(len(ffs)))
-    D = Analysis2nm_1.calc_diffusion(list(ffe-ffs), L, T = 296)
+    D = Analysis2nm_1.calc_diffusion(list(ffe-ffs), L)
     print("\tDiffusioncoefficient: " + str(D).replace(".",","))
     plt.show()
 
     # Dod analysis
-    print("\tDOD analysis")
+    print("\nDOD analysis")
     ffs, ffe, indizes = Analysis2nm_1.calc_passagetimes(["resname DOD and name C2"], z_lower, L)
     print("\tpassages: " + str(len(ffs)))
-    D = Analysis2nm_1.calc_diffusion(list(ffe-ffs), L, T = 296)
+    D = Analysis2nm_1.calc_diffusion(list(ffe-ffs), L)
     print("\tDiffusioncoefficient: " + str(D).replace(".",","))
     plt.show()
+    print("\n\n\n")
