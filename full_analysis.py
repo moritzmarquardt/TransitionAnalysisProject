@@ -26,37 +26,39 @@ for path in paths:
 
     print(DA)
 
-    # STEP 2: Find z_lower and validate by eye
     print("Analysis of the membrane z-dimension")
     DA.find_membrane_location_hexstructure(mem_selector="resname C")
     print("\tz_lower: " + str(DA.z_lower))
+
     fig_hist, ax_hist = DA.create_hist_for_axis(["resname HEX and name C1"], 2)
     ax_hist.axvline(DA.z_lower, color="r", linestyle="--", label="z_lower")
     ax_hist.axvline(DA.z_lower + DA.L, color="g", linestyle="--", label="z_upper")
     ax_hist.legend()
     DA.save_fig_to_results(fig=fig_hist, name="x_hist_hex_borders")
-    # plt.show()
+
     DA.save_trajectories_if_notthere()
 
-    # STEP 3: analyse passage times and calculate diffusion coefficient
-    # Hex analysis
     print("\nHEX analysis")
+
     ffs, ffe = DA.calc_passagetimes(["resname HEX and name C1"])
     print("\tpassages: " + str(len(ffs)))
+
     D_hex = DA.calc_diffusion(list(ffe - ffs))
     print("\tDiffusioncoefficient: " + str(D_hex).replace(".", ","))
-    fig_hex_diff = DA.plot_diffusion(list(ffe - ffs), D_hex)
-    print(fig_hex_diff)
-    DA.save_fig_to_results(fig=fig_hex_diff, name="diffusion_hex")
-    # plt.show()
 
-    # Dod analysis
+    fig_hex_diff = DA.plot_diffusion(list(ffe - ffs), D_hex)
+    DA.save_fig_to_results(fig=fig_hex_diff, name="diffusion_hex")
+
     print("\nDOD analysis")
+
     ffs, ffe = DA.calc_passagetimes(["resname DOD and name C2"])
     print("\tpassages: " + str(len(ffs)))
+
     D_dod = DA.calc_diffusion(list(ffe - ffs))
     print("\tDiffusioncoefficient: " + str(D_dod).replace(".", ","))
+
     fig_dod_diff = DA.plot_diffusion(list(ffe - ffs), D_dod)
     DA.save_fig_to_results(fig=fig_dod_diff, name="diffusion_dod")
+
     plt.show()
     print("\n\n\n")
