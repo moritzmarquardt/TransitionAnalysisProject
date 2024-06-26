@@ -36,8 +36,6 @@ for path in paths:
     ax_hist.legend()
     DA.save_fig_to_results(fig=fig_hist, name="x_hist_hex_borders")
 
-    DA.save_trajectories_if_notthere()
-
     print("\nHEX analysis")
 
     ffs, ffe = DA.calc_passagetimes(["resname HEX and name C1"])
@@ -59,6 +57,8 @@ for path in paths:
 
     fig_dod_diff = DA.plot_diffusion(list(ffe - ffs), D_dod)
     DA.save_fig_to_results(fig=fig_dod_diff, name="diffusion_dod")
+
+    DA.save_trajectories_if_notthere()
 
     plt.show()
     print("\n\n\n")
