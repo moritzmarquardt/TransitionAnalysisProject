@@ -2,11 +2,17 @@ import json
 
 import matplotlib.pyplot as plt
 from MembraneAnalysisToolbox.DiffusionAnalysis import DiffusionAnalysis
-from MembraneAnalysisToolbox.MembraneStructures import CubicMembrane, HexagonalMembrane
+from MembraneAnalysisToolbox.MembraneStructures import (
+    CubicMembrane,
+    HexagonalMembrane,
+    Solvent,
+)
 
 path = input("Enter the path to the simulation: ")
 print("Path: " + path + "\n")
-cubic_or_hex = input("Enter the type of membrane (cubic (C) or hexagonal (H)): ")
+membrane_type = input(
+    "Enter the type of membrane (cubic (C) or hexagonal (H) or solvent (S)): "
+)
 
 
 def analyse_resname(selector: str, short: str):
@@ -38,11 +44,22 @@ cubic_structure = CubicMembrane(
     pore_radius=15,
 )
 
+solvent_structure = Solvent(
+    lowerZ=None,
+    upperZ=None,
+)
+
 structure = None
-if cubic_or_hex == "C":
+if membrane_type == "C":
     structure = cubic_structure
-elif cubic_or_hex == "H":
+elif membrane_type == "H":
     structure = hexagonal_structure
+elif membrane_type == "S":
+    structure = solvent_structure
+    solvent_structure.lowerZ = input("Enter the lower Z value: ")
+    solvent_structure.upperZ = input("Enter the upper Z value: ")
+else:
+    raise ValueError("Invalid input for membrane_type")
 
 
 # STEP 1: initialise the Data into the class
